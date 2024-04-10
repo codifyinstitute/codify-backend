@@ -27,7 +27,7 @@ router.post("/course-card", async (req, res) => {
 
     try {
         const storeCourseCard = new Course({
-            CourseName, Category, Description
+            CourseName, NavName:CourseName, Category, Description
         })
 
         const storeData = await storeCourseCard.save();
@@ -268,26 +268,26 @@ router.get("/:courseName/get-heading", async (req, res) => {
     }
 })
 
-router.get(`/:category/get-courses`, async(req,res) =>{
+router.get(`/:category/get-courses`, async (req, res) => {
     const Category = req.params.category;
 
-    try{
-        const  courses = await Course.find({Category});
-        
+    try {
+        const courses = await Course.find({ Category });
+
         res.status(201).json(courses);
-    }catch(error){
+    } catch (error) {
         console.log(error);
     }
 })
 
-router.get(`/:courseName/get-courseData`, async(req,res) =>{
+router.get(`/:courseName/get-courseData`, async (req, res) => {
     const courseName = req.params.courseName;
 
-    try{
-        const  courses = await Course.find({CourseName:courseName});
-        
+    try {
+        const courses = await Course.find({ CourseName: courseName });
+
         res.status(201).json(courses);
-    }catch(error){
+    } catch (error) {
         console.log(error);
     }
 })
