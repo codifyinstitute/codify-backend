@@ -1,5 +1,6 @@
 const express = require("express");
 const router = new express.Router();
+const moment = require('moment-timezone');
 const path = require('path');
 const Enquiry = require("./../models/enquirySchema");
 const CourseCard = require("./../models/courseCardSchema");
@@ -11,7 +12,9 @@ router.post("/enquiry", async (req, res) => {
     const { Name, MobileNo, Email, CourseName } = req.body;
     try {
         const storeEnquiry = new Enquiry({
-            Name, MobileNo, Email, CourseName
+            Name, MobileNo, Email, CourseName,
+            enquiryDate: moment().tz('Asia/Kolkata').format('YYYY-MM-DD'),
+            enquiryTime: moment().tz('Asia/Kolkata').format('HH:mm:ss')
         });
 
         const storeData = await storeEnquiry.save();
@@ -22,12 +25,37 @@ router.post("/enquiry", async (req, res) => {
     }
 });
 
+router.get("/enquiries", async (req, res) => {
+    try {
+        // Fetch all enquiries
+        const enquiries = await Enquiry.find({});
+
+        res.status(200).json({ enquiries });
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching enquiries" });
+    }
+});
+
+router.delete("/enquiry/:_id", async (req, res) => {
+    const { _id } = req.params;
+
+    try {
+        // Find enquiry by ID and delete it
+        await Enquiry.findByIdAndDelete(_id);
+
+        res.status(204).json({ message: "Enquiry deleted successfully" });
+    } catch (error) {
+        res.status(404).json({ error: "Enquiry not found" });
+    }
+});
+
+
 router.post("/course-card", async (req, res) => {
     const { CourseName, Category, Description } = req.body;
 
     try {
         const storeCourseCard = new Course({
-            CourseName, NavName:CourseName, Category, Description
+            CourseName, NavName: CourseName, Category, Description
         })
 
         const storeData = await storeCourseCard.save();

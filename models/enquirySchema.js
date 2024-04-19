@@ -16,6 +16,14 @@ const enquirySchema = new mongoose.Schema({
     CourseName: {
         type: String,
         required: true
+    },
+    enquiryDate: {
+        type: String,
+        required: true
+    },
+    enquiryTime: {
+        type: String,
+        required: true
     }
 })
 
