@@ -28,6 +28,14 @@ const speridianSchema = new mongoose.Schema({
     Message: {
         type: String,
         required: true
+    },
+    Date: {
+        type: String,
+        required: true
+    },
+    Time: {
+        type: String,
+        required: true
     }
 });
 

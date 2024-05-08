@@ -1,6 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const SperidianContact = require('./../models/speridianSchema')
+const moment = require('moment-timezone');
 
 
 router.post("/add-speridian-contact", async (req, res) => {
@@ -13,7 +14,10 @@ router.post("/add-speridian-contact", async (req, res) => {
             Phone,
             Organization,
             Country,
-            Message
+            Message,
+            Date: moment().tz('Asia/Kolkata').format('YYYY-MM-DD'),
+            Time: moment().tz('Asia/Kolkata').format('HH:mm:ss')
+
         })
         await storeData.save();
         res.status(201).json({
