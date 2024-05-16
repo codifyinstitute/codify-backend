@@ -2,11 +2,10 @@ const express = require("express");
 const router = new express.Router();
 const moment = require('moment-timezone');
 const path = require('path');
-const Enquiry = require("./../models/enquirySchema");
-const CourseCard = require("./../models/courseCardSchema");
-const Category = require("./../models/categorySchema");
-const Course = require("./../models/courseSchema");
-const cardUpload = require("../config/CardImage");
+const Enquiry = require("./../../models/TryCatch/enquirySchema");
+const Category = require("./../../models/TryCatch/categorySchema");
+const Course = require("./../../models/TryCatch/courseSchema");
+const cardUpload = require("./../../config/CardImage");
 
 router.post("/enquiry", async (req, res) => {
     const { Name, MobileNo, Email, CourseName } = req.body;
@@ -49,24 +48,6 @@ router.delete("/enquiry/:_id", async (req, res) => {
     }
 });
 
-
-router.post("/course-card", async (req, res) => {
-    const { CourseName, Category, Description } = req.body;
-
-    try {
-        const storeCourseCard = new Course({
-            CourseName, NavName: CourseName, Category, Description
-        })
-
-        const storeData = await storeCourseCard.save();
-
-        res.status(201).json({ status: 201, storeData })
-
-    } catch (error) {
-        res.status(422).json(error);
-    }
-});
-
 router.post("/create-category", cardUpload.single('image'), async (req, res) => {
     try {
         // Extract category and image file name from the request
@@ -88,15 +69,6 @@ router.post("/create-category", cardUpload.single('image'), async (req, res) => 
     }
 });
 
-router.get("/get-card-data", async (req, res) => {
-    try {
-        const cardData = await CourseCard.find();
-        res.status(201).json(cardData)
-        console.log(cardData);
-    } catch (error) {
-        res.status(422).json(error);
-    }
-})
 
 router.get("/get-course", async (req, res) => {
     try {

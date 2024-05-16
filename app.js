@@ -2,10 +2,9 @@ require("dotenv").config();
 const express = require('express');
 const app = express();
 require("./config/DBConn");
-const Enquiry = require('./models/enquirySchema');
 const cors = require("cors");
-const router = require("./routes/route")
-const router1 = require("./routes/speredianRoute")
+const router = require("./routes/TryCatch/route")
+const router1 = require("./routes/Speridian/speredianRoute")
 
 app.use(express.json());
 app.use(cors());

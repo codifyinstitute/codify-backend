@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const speridianSchema = new mongoose.Schema({
+const warrantyFormSchema = new mongoose.Schema({
     FirstName: {
         type: String,
         required: true
@@ -13,19 +13,7 @@ const speridianSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    Phone: {
-        type: String,
-        required: true
-    },
-    Organization: {
-        type: String,
-        required: true
-    },
-    Country: {
-        type: String,
-        required:true
-    },
-    Message: {
+    CompanyName: {
         type: String,
         required: true
     },
@@ -39,6 +27,6 @@ const speridianSchema = new mongoose.Schema({
     }
 });
 
-const SperidianContact = mongoose.model("SperidianContact", speridianSchema)
+const WarrantyForm = mongoose.model('WarrantyForm', warrantyFormSchema);
 
-module.exports = SperidianContact;
+module.exports = WarrantyForm;
