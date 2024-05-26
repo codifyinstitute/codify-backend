@@ -62,7 +62,7 @@ router.post("/add-warranty-data", async (req, res) => {
 });
 
 router.post("/add-company-data", async (req, res) => {
-    const { Company_Name,  Company_Logo} = req.body;
+    const { Company_Name, Company_Logo } = req.body;
 
     try {
         const storeData = new Logo({
@@ -115,6 +115,49 @@ router.get("/get-warranty-contact", async (req, res) => {
 router.get("/get-company-data", async (req, res) => {
     try {
         const data = await Logo.find();
+        res.status(200).json({
+            data
+        })
+    } catch {
+        res.status(400).json({
+            status: "failed",
+            message: "error while uploading data"
+        })
+    }
+})
+
+// Delete Routes
+router.delete("/delete-sp-contact/:id", async (req, res) => {
+    try {
+        const data = await SperidianContact.findByIdAndDelete(req.params.id);
+        res.status(200).json({
+            data
+        })
+    } catch {
+        res.status(400).json({
+            status: "failed",
+            message: "error while uploading data"
+        })
+    }
+})
+
+router.delete("/delete-sp-warranty/:id", async (req, res) => {
+    try {
+        const data = await WarrantyForm.findByIdAndDelete(req.params.id);
+        res.status(200).json({
+            data
+        })
+    } catch {
+        res.status(400).json({
+            status: "failed",
+            message: "error while uploading data"
+        })
+    }
+})
+
+router.delete("/delete-company-data/:id", async (req, res) => {
+    try {
+        const data = await Logo.findByIdAndDelete(req.params.id);
         res.status(200).json({
             data
         })
